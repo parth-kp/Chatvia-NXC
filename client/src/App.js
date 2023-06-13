@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import Routes from './routes';
+
+//Import Scss
+import "./assets/scss/themes.scss";
+
+//fackbackend
+import fakeBackend from './helpers/fake-backend';
+import { useSelector } from 'react-redux';
+
+// //Firebase helper
+// import { initFirebaseBackend } from "./helpers/firebase";
+
+// TODO
+fakeBackend();
+
+// const firebaseConfig = {
+// 	apiKey: process.env.REACT_APP_APIKEY,
+// 	authDomain: process.env.REACT_APP_AUTHDOMAIN,
+// 	databaseURL: process.env.REACT_APP_DATABASEURL,
+// 	projectId: process.env.REACT_APP_PROJECTID,
+// 	storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+// 	messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+// 	appId: process.env.REACT_APP_APPID,
+// 	measurementId: process.env.REACT_APP_MEASUREMENTID,
+// };
+  
+// // init firebase backend
+// initFirebaseBackend(firebaseConfig);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  const { layoutMode } = useSelector(state => ({
+    layoutMode: state.Layout.layoutMode,
+  }));
+
+useEffect(() => {
+  layoutMode && localStorage.setItem("layoutMode",layoutMode);
+}, [layoutMode])
+
+  return <Routes />;
+};
 
 export default App;
