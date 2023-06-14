@@ -7,4 +7,4 @@ const con = mysql.createConnection({
   database: 'whatsapp'
 });
 
- module.exports = con;
+module.exports = con;
