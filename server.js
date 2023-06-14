@@ -1,7 +1,14 @@
 const express = require('express');
 const app = express();
-const connect = require("./DB.js");
-connect();
-app.listen(5000, ()=>{
+const con = require('./DB');
+app.use(express.json());
+con.connect((err)=> {
+    if (err) console.log(err);
+     console.log("Connection Successfull");
+  })
+
+  app.use('/api/auth', require("./Routes/Login.js"));
+
+app.listen(5001, ()=>{
     console.log("Listening to port 5000")
 })

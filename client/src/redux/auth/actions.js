@@ -12,6 +12,7 @@ import {
 
 export const loginUser = (username, password, history) => ({
     type: LOGIN_USER,
+    
     payload: { username, password, history }
 });
 
