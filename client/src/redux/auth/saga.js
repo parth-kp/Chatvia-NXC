@@ -19,6 +19,7 @@ import {
     apiError,
     logoutUserSuccess
 } from './actions';
+import axios from 'axios';
 
 
 //Initilize firebase
@@ -37,6 +38,16 @@ const create = new APIClient().create;
  * @param {*} payload - username and password 
  */
 function* login({ payload: { username, password, history } }) {
+    let hh = async ()=>{
+        try {
+            let {data} = await axios.post("api/auth/login", {email: username, password});
+             console.log(data);
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    hh();
     try {
         if(process.env.REACT_APP_DEFAULTAUTH === "firebase") {
             const response = yield call(fireBaseBackend.loginUser, username, password);

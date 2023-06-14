@@ -15,6 +15,7 @@ import { loginUser, apiError } from '../../redux/actions';
 //Import Images
 import logodark from "../../assets/images/logo-dark.png";
 import logolight from "../../assets/images/logo-light.png";
+import axios from "axios";
 
 /**
  * Login component
@@ -50,6 +51,15 @@ const Login = (props) => {
 
     if (localStorage.getItem("authUser")) {
         return <Navigate to="/" />;
+    }
+    let handle = async()=>{
+        try {
+            console.log("axios called");
+            let {data} = await axios.post("api/auth/login", {email: 'admin@gmail.com', password: 'demo1234'});
+            console.log(data);
+        } catch (error) {
+            console.error(error.response.data);
+        }
     }
 
     return (
@@ -136,6 +146,9 @@ const Login = (props) => {
 
                                             <div className="d-grid">
                                                 <Button color="primary" block className=" waves-effect waves-light" type="submit">{t('Sign in')}</Button>
+                                            </div>
+                                            <div>
+                                                <button onClick={handle}>Submit</button>
                                             </div>
 
                                         </Form>
