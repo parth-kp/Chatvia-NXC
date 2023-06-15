@@ -1,8 +1,8 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-
+import axios from "axios";
 import { APIClient } from '../../helpers/apiClient';
 import { getFirebaseBackend } from "../../helpers/firebase";
-
+import CheckCheckCredentials
 
 import {
     LOGIN_USER,
@@ -37,24 +37,20 @@ const create = new APIClient().create;
  * @param {*} payload - username and password 
  */
 function* login({ payload: { username, password, history } }) {
-    try {
-        if(process.env.REACT_APP_DEFAULTAUTH === "firebase") {
-            const response = yield call(fireBaseBackend.loginUser, username, password);
-            yield put(loginUserSuccess(response));
-            
-        } else {
-            const response = yield call(create, '/login', { username, password });
-            localStorage.setItem("authUser", JSON.stringify(response));
-            yield put(loginUserSuccess(response));
-           
-            
-        }
-        history('/dashboard');
-    } catch (error) {
-        yield put(apiError(error));
+    async function myApi() {
+
+    }
+
+    let data = yield call(myApi);
+    console.log(data);
+    console.log("ok");
+    if(username==="admin@themesbrand"&& password==="123456"){
+        localStorage.setItem("authUser", JSON.stringify("response"));
+        history('/dashboard');}
+    else{
+        yield put(apiError("Username and password are invalid. Please enter correct username and password"));
     }
 }
-
 
 /**
  * Logout the user

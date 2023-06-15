@@ -1,10 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const con = require("../DB.js");
-let error = require("../MiddleWare/Error.js")
-let bcrypt = require('bcrypt');
+const mysql = require('mysql');
+const bcrypt = require("bcrypt");
 
-router.get("/login", error(async (req, res, next)=>{
+const con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: 'whatsapp'
+});
+
+let CheckCredentials=(email,password)=>{
     try{
         let email= req.param('email');
         console.log(email);
@@ -25,8 +29,4 @@ router.get("/login", error(async (req, res, next)=>{
     }catch (e) {
         res.send({success: false, message: "Invalid Credentials"});
     }
-}));
-router.get("/logout", async(req, res, next)=>{
-    res.send("Hello Parth");
-})
-module.exports = router;
+}
